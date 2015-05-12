@@ -34,16 +34,16 @@ public class startApp extends CordovaPlugin {
      * Executes the request and returns PluginResult.
      *
      * @param action            The action to execute.
-     * @param args              JSONArray of arguments for the plugin.
+     * @param URL              URL to opent
      * @param callbackContext   The callback context used when calling back into JavaScript.
      * @return                  True when the action was valid, false otherwise.
      */
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, String URL, CallbackContext callbackContext) throws JSONException {
         if (action.equals("start")) {
-            this.start(args, callbackContext);
+            this.start(URL, callbackContext);
         }
 		else if(action.equals("check")) {
-			this.check(args.getString(0), callbackContext);
+			this.check("forgepond.com.mobileiron.android.securebrowser", callbackContext);
 		}
 		
 		return true;
