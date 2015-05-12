@@ -55,81 +55,26 @@ public class startApp extends CordovaPlugin {
     /**
      * startApp
      */
-    public void start(JSONArray args, CallbackContext callback) {
+    public void start(String URL, CallbackContext callback) {
 		
-		String com_name = null;
-		String activity = null;
-		Intent LaunchIntent;
+	try {
+		/*
+		String packageName = "forgepond.com.mobileiron.android";
+		String className = "forgepond.com.mobileiron.android.securebrowser";
+		Intent internetIntent = new Intent("forgepond.android.intent.action.VIEW");
+		internetIntent.addCategory("android.intent.category.DEFAULT");
+		internetIntent.setClassName(packageName, className);
+		this.cordova.getActivity().startActivity(internetIntent);
+		*/
 		
-		try {
-			if (args.get(0) instanceof JSONArray) {
-				com_name = args.getJSONArray(0).getString(0);
-				activity = args.getJSONArray(0).getString(1);                     
-			}
-			else {
-				com_name = args.getString(0);
-			}
+		Intent intent = new Intent("forgepond.android.intent.action.VIEW").setData(Uri.parse(URL)));
+		this.cordova.getActivity().startActivity(intent);
+		callback.success();
 		
-			/**
-			 * call activity
-			 */
-			if(activity != null) {
-				if(com_name.equals("action")) {
-					// sample: android.intent.action.VIEW
-					if(activity.indexOf(".") > 0) {
-						LaunchIntent = new Intent(activity);
-					}
-					else {
-						LaunchIntent = new Intent("android.intent.action." + activity);
-					}
-				}
-				else {
-					LaunchIntent = new Intent();
-					LaunchIntent.setComponent(new ComponentName(com_name, activity));
-				}
-			}
-			else {
-				LaunchIntent = this.cordova.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
-			}
-			
-			/**
-			 * put arguments
-			 */
-			if(args.length() > 1) {
-				JSONArray params = args.getJSONArray(1);
-				JSONObject key_value;
-				String key;
-				String value;
-
-				for(int i = 0; i < params.length(); i++) {
-					if (params.get(i) instanceof JSONObject) {
-						Iterator<String> iter = params.getJSONObject(i).keys();
-						
-						 while (iter.hasNext()) {
-							key = iter.next();
-							try {
-								value = params.getJSONObject(i).getString(key);
-								
-								LaunchIntent.putExtra(key, value);
-							} catch (JSONException e) {
-								callback.error("json params: " + e.toString());
-							}
-						}
-					}
-					else {
-						LaunchIntent.setData(Uri.parse(params.getString(i)));
-					}
-				}
-			}
-			
-			this.cordova.getActivity().startActivity(LaunchIntent);
-			callback.success();
-			
-		} catch (JSONException e) {
-			callback.error("json: " + e.toString());
-		} catch (Exception e) {
-			callback.error("intent: " + e.toString());
-        }
+	} catch (Exception e) {
+		callback.error("intent: " + e.toString());
+	}
+	
     }
 
     /**
