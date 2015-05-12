@@ -58,17 +58,16 @@ public class startApp extends CordovaPlugin {
     public void start(String URL, CallbackContext callback) {
 		
 	try {
-		/*
-		String packageName = "forgepond.com.mobileiron.android";
-		String className = "forgepond.com.mobileiron.android.securebrowser";
-		Intent internetIntent = new Intent("forgepond.android.intent.action.VIEW");
-		internetIntent.addCategory("android.intent.category.DEFAULT");
-		internetIntent.setClassName(packageName, className);
-		this.cordova.getActivity().startActivity(internetIntent);
-		*/
 		
-		Intent intent = new Intent("forgepond.android.intent.action.VIEW").setData(Uri.parse(URL));
-		this.cordova.getActivity().startActivity(intent);
+		String packageName = "forgepond.com.mobileiron.android.securebrowser";  
+		String className = "forgepond.com.mobileiron.android.securebrowser.VIEW";  
+		Intent internetIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(URL)); 
+		internetIntent.addCategory(Intent.CATEGORY_LAUNCHER);  
+		internetIntent.setClassName(packageName, className);  
+		this.cordova.getActivity().startActivity(internetIntent); 
+		
+		//Intent intent = new Intent("forgepond.android.intent.action.VIEW").setData(Uri.parse(URL));
+		//this.cordova.getActivity().startActivity(intent);
 		callback.success();
 		
 	} catch (Exception e) {
