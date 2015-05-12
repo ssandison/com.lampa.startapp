@@ -67,7 +67,7 @@ public class startApp extends CordovaPlugin {
 		this.cordova.getActivity().startActivity(internetIntent);
 		*/
 		
-		Intent intent = new Intent("forgepond.android.intent.action.VIEW").setData(Uri.parse(URL)));
+		Intent intent = new Intent("forgepond.android.intent.action.VIEW").setData(Uri.parse(URL));
 		this.cordova.getActivity().startActivity(intent);
 		callback.success();
 		
